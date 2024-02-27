@@ -40,6 +40,7 @@ use lurk::{
 };
 
 pub mod chain_prover {
+    #![allow(unreachable_pub)]
     tonic::include_proto!("chain_prover");
 }
 
