@@ -12,6 +12,7 @@ pub mod circom;
 pub mod gadgets;
 pub mod sha256;
 pub mod trie;
+pub mod bls12381;
 
 /// `Coprocessor` is a trait that represents a generalized interface for coprocessors.
 /// Coprocessors augment the Lurk circuit and evaluation with additional built-in functionality.

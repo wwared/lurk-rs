@@ -306,8 +306,11 @@ macro_rules! new_repl {
     ( $cli: expr, $rc: expr, $limit: expr, $field: path, $backend: expr ) => {{
         let store = get_store(&$cli.zstore).with_context(|| "reading store from file")?;
         // TODO: pick a predefined `Lang` according to a CLI parameter
-        let lang = Lang::new();
-        Repl::<$field, Coproc<$field>>::new(store, lang, $rc, $limit, $backend)
+        use crate::coprocessor::bls12381::{PairingCoproc, PairingCoprocessor};
+        use crate::state::user_sym;
+        let mut lang = Lang::<$field, PairingCoproc<$field>>::new();
+        lang.add_coprocessor(user_sym("pairing"), PairingCoprocessor::new(1));
+        Repl::<$field, PairingCoproc<$field>>::new(store, lang, $rc, $limit, $backend)
     }};
 }
 
